@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import Home from './pages/Home'
 // import About from './pages/About'
 // import Contact from './pages/Contact'
-import { Home, About, Contact, LikedImages, DownloadImages } from "./pages";
+import { Home, About, Contact, LikedImages, DownloadImages, ImageInfo } from "./pages";
 
 // layouts
 import MainLayout from "./layouts/MainLayout";
@@ -40,6 +40,10 @@ function App() {
         {
           path: '/downloadImages',
           element: <DownloadImages/>
+        },
+        {
+          path: '/imageInfo',
+          element: <ImageInfo/>
         },
       ]
 
