@@ -25,7 +25,7 @@ function DownloadImages() {
       <div className="align-elements my-5">
         <h1 className="text-center text-2xl md:text-4xl my-5">Download images</h1>
 
-        {downloadImages.length > 0 && <ImageContainer check='download' images={downloadImages} />}
+        {downloadImages.length > 0 && <ImageContainer images={downloadImages} />}
       </div>
     </div>
   );

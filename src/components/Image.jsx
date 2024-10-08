@@ -10,7 +10,7 @@ import { useGlobalContext } from "../hooks/useGlobalContext";
 import { FaRegHeart, FaHeart, FaDownload, FaTrash } from "react-icons/fa";
 
 function Image({ image, added, check }) {
-  const { likedImages, dispatch, downloadImages } = useGlobalContext()
+  const { likedImages, dispatch, downloadImages, downloadCheck } = useGlobalContext()
 
   const { links, urls, alt_description, user } = image
 
@@ -41,8 +41,17 @@ function Image({ image, added, check }) {
     dispatch({ type: 'REDOWNLOAD', payload: image.id })
   }
 
+  function downloadImage(e) {
+    e.preventDefault()
+    window.open(links.download + '&force=true' + '_blank')
+  }
+
+  function func(e) {
+    e.preventDefault()
+  }
+
   return (
-    <Link to={"/imageInfo"}>
+    <Link to={`/imageInfo/${image.id}`}>
       <div className="relative group">
         {!added && <span onClick={(e) => addLikeImage(image, e)} className="absolute
        h-7 w-7 border rounded-full 
@@ -61,17 +70,19 @@ function Image({ image, added, check }) {
           <img src={user.profile_image.large} alt={user.name + ' avatar'} className="w-8 h-8 rounded-full" />
           <p className="text-white text-sm">{user.name}</p>
         </span>
-        {check !== 'download' && <span className="absolute h-7 w-7  rounded-full 
+        {!check && <span className="absolute h-7 w-7  rounded-full 
        flex justify-center items-center cursor-pointer
        right-2 bottom-2 invisible opacity-0 group-hover:opacity-100 group-hover:visible transition-all duration-300">
-          <a download href={links.download + '&force=true'}>
+          <span onClick={(e)=>downloadImage(e)} >
             <FaDownload onClick={() => addDownloadImage(image)} className="text-white" />
-          </a>
+          </span>
         </span>}
-        {check == 'download' && <span className="absolute h-7 w-7  rounded-full 
+        {check && <span className="absolute h-7 w-7  rounded-full 
        flex justify-center items-center cursor-pointer
        right-2 bottom-2 invisible opacity-0 group-hover:opacity-100 group-hover:visible transition-all duration-300">
-          <FaTrash onClick={() => deleteDownloadImage(image)} className="text-white" />
+          <span onClick={(e)=>func(e)}>
+            <FaTrash onClick={() => deleteDownloadImage(image)} className="text-white" />
+          </span>
         </span>}
       </div>
     </Link>

@@ -42,7 +42,7 @@ function App() {
           element: <DownloadImages/>
         },
         {
-          path: '/imageInfo',
+          path: '/imageInfo/:id',
           element: <ImageInfo/>
         },
       ]

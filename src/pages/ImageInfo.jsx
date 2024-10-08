@@ -1,8 +1,10 @@
+import { useParams } from "react-router-dom";
 
 
 function ImageInfo() {
+  const {id} = useParams()
   return ( 
-    <div>imageinfo</div>
+    <div>imageinfo-{id}</div>
    );
 }
 

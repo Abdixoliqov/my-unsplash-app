@@ -8,6 +8,7 @@ const dataFromLocalStorage = () => {
         JSON.parse(localStorage.getItem('my-splash-data')) || {
             likedImages: [],
             downloadImages: [],
+            downloadCheck: false
         }
     )
 }
@@ -28,12 +29,14 @@ const changeState = (state, action) => {
         case 'DOWNLOAD':
             return {
                 ...state,
+                downloadCheck: true,
                 downloadImages: [...state.downloadImages, payload]
             }
 
         case 'REDOWNLOAD':
             return {
                 ...state,
+                downloadCheck: false,
                 downloadImages: state.downloadImages.filter((image)=>image.id !== payload)
             }
         default:
