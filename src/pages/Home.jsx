@@ -29,6 +29,8 @@ function Home() {
   )
 
 
+  console.log(allImages, 'allimages');
+  
   useEffect(() => {
     if (data && data.results) {
       setAllImages((prevImages)=>{

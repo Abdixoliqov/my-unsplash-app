@@ -10,14 +10,12 @@ export function useFetch(url) {
        setIsPending(true)
        try {
         const req = await fetch(url)
-        console.log(req, 'req');
         
         if (!req.ok) {
             throw new Error(req.statusText)
         }
 
         const data = await req.json()
-        console.log(data, 'json data');
         
         setData(data)
         setIsPending(false)
