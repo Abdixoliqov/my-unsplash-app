@@ -19,11 +19,16 @@ function ImageInfo() {
   // console.log(data, 'data');
 
 
+  // useEffect(()=>{
+  //   setImageData((prev)=>{
+  //     return [...prev, data]
+  //   })
+  // }, [data])
 
 
   useEffect(() => {
     if (data && data.urls) {
-      setImageData((prev) => {
+      setImageData((prev)=>{
         return [...prev, data]
       })
     }
@@ -36,55 +41,29 @@ function ImageInfo() {
 
 
   return (
-    <div className="align-elements my-5">
-      {
-        isPending && <ResponsiveMasonry
-          columnsCountBreakPoints={
-            {
-              350: 2,
-              750: 3,
-              900: 4
-            }
-          }
-        >
-          <Masonry gutter="10px">
-            <div className="flex w-52 flex-col gap-4">
-              <div className="skeleton h-32 w-full"></div>
-              <div className="skeleton h-4 w-28"></div>
-              <div className="skeleton h-4 w-full"></div>
-              <div className="skeleton h-4 w-full"></div>
-            </div>
-
-            <div className="flex w-52 flex-col gap-4">
-              <div className="skeleton h-32 w-full"></div>
-              <div className="skeleton h-4 w-28"></div>
-              <div className="skeleton h-4 w-full"></div>
-              <div className="skeleton h-4 w-full"></div>
-            </div>
-
-            <div className="flex w-52 flex-col gap-4">
-              <div className="skeleton h-32 w-full"></div>
-              <div className="skeleton h-4 w-28"></div>
-              <div className="skeleton h-4 w-full"></div>
-              <div className="skeleton h-4 w-full"></div>
-            </div>
-
-            <div className="flex w-52 flex-col gap-4">
-              <div className="skeleton h-32 w-full"></div>
-              <div className="skeleton h-4 w-28"></div>
-              <div className="skeleton h-4 w-full"></div>
-              <div className="skeleton h-4 w-full"></div>
-            </div>
-          </Masonry>
-        </ResponsiveMasonry>
-      }
-      {
-        imageData.map((img) => {
-          return (
-            <img className="w-48 md:w-96 bordered" src={img.urls.full} alt={img.alt_description} />
-          )
-        })
-      }
+    <div className="py-24 sm:py-32">
+      <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
+        <div className="max-w-2xl">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Meet our leadership</h2>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae elementum enim vitae ullamcorper
+            suspendisse.
+          </p>
+        </div>
+        <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
+          {imageData.map((person) => (
+            <li key={person.id}>
+              <div className="flex items-center gap-x-6">
+                <img alt="" src={person.user.profile_image.large} className="h-16 w-16 rounded-full" />
+                <div>
+                  <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">{person.name}</h3>
+                  <p className="text-sm font-semibold leading-6 text-indigo-600">{person.role}</p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 
