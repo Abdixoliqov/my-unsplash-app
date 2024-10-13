@@ -1,5 +1,4 @@
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
-
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import { ImageContainer } from "../components";
 
@@ -7,68 +6,103 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 
-
 function ImageInfo() {
-  const [imageData, setImageData] = useState([])
-  const { id } = useParams()
+  const [imageData, setImageData] = useState([]);
+  const { id } = useParams();
   const { data, isPending, error } = useFetch(
-    `https://api.unsplash.com/photos/${id}?client_id=${import.meta.env.VITE_ACCESS_KEY}`
-  )
-  // console.log(id, 'array');
-  // console.log(id);
-  // console.log(data, 'data');
-
-
-  // useEffect(()=>{
-  //   setImageData((prev)=>{
-  //     return [...prev, data]
-  //   })
-  // }, [data])
-
+    `https://api.unsplash.com/photos/${id}?client_id=${
+      import.meta.env.VITE_ACCESS_KEY
+    }`
+  );
 
   useEffect(() => {
     if (data && data.urls) {
-      setImageData((prev)=>{
-        return [...prev, data]
-      })
+      setImageData((prev) => {
+        return [...prev, data];
+      });
     }
-
-  }, [data])
-  console.log(imageData, 'imagedata');
-
-
-
-
+  }, [data]);
 
   return (
-    <div className="py-24 sm:py-32">
-      <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
-        <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Meet our leadership</h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae elementum enim vitae ullamcorper
-            suspendisse.
-          </p>
-        </div>
-        <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
-          {imageData.map((person) => (
-            <li key={person.id}>
-              <div className="flex items-center gap-x-6">
-                <img alt="" src={person.user.profile_image.large} className="h-16 w-16 rounded-full" />
-                <div>
-                  <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">{person.name}</h3>
-                  <p className="text-sm font-semibold leading-6 text-indigo-600">{person.role}</p>
-                </div>
+    <div className="align-elements py-5">
+      <h1 className="text-center text-2xl my-5">Image information</h1>
+      {isPending && (
+        <ResponsiveMasonry
+          columnsCountBreakPoints={{
+            350: 2,
+            750: 3,
+            900: 4,
+          }}
+        >
+          <Masonry gutter="10px">
+            <div className="flex w-52 flex-col gap-4">
+              <div className="skeleton h-32 w-full"></div>
+              <div className="skeleton h-4 w-28"></div>
+              <div className="skeleton h-4 w-full"></div>
+              <div className="skeleton h-4 w-full"></div>
+            </div>
+
+            <div className="flex w-52 flex-col gap-4">
+              <div className="skeleton h-32 w-full"></div>
+              <div className="skeleton h-4 w-28"></div>
+              <div className="skeleton h-4 w-full"></div>
+              <div className="skeleton h-4 w-full"></div>
+            </div>
+
+            <div className="flex w-52 flex-col gap-4">
+              <div className="skeleton h-32 w-full"></div>
+              <div className="skeleton h-4 w-28"></div>
+              <div className="skeleton h-4 w-full"></div>
+              <div className="skeleton h-4 w-full"></div>
+            </div>
+
+            <div className="flex w-52 flex-col gap-4">
+              <div className="skeleton h-32 w-full"></div>
+              <div className="skeleton h-4 w-28"></div>
+              <div className="skeleton h-4 w-full"></div>
+              <div className="skeleton h-4 w-full"></div>
+            </div>
+          </Masonry>
+        </ResponsiveMasonry>
+      )}
+      {imageData.map((item) => {
+        return (
+          <div className="flex flex-col sm:flex-row gap-5">
+            <div className="md:min-w-80 sm:min-w-60">
+              <div className="">
+                <img
+                  className="rounded-md object-cover w-auto h-auto md:w-80 md:max-h-96"
+                  src={item.urls.regular}
+                  alt={item.alt_description}
+                />
               </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+            </div>
+
+            <div className="">
+              <ul className="flex flex-col gap-6">
+                <li className="flex justify-start gap-5 items-center">
+                  <span className="font-bold">Author:</span>
+                  <div className="border relative flex justify-start gap-5 items-center rounded-md p-1 pl-2 pr-10 overflow-visible">
+                    <p>{item.user.name}</p>
+                    <img
+                      alt=""
+                      src={item.user.profile_image.large}
+                      className="h-12 w-12 rounded-full absolute -right-5"
+                    />
+                  </div>
+                </li>
+
+                <li className="flex justify-start gap-5 items-center">
+                  <span className="font-bold">Created:</span>
+                  <span>{item.created_at}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
-
-
-
 }
 
 export default ImageInfo;
