@@ -25,7 +25,7 @@ function ImageInfo() {
 
   return (
     <div className="align-elements py-5">
-      <h1 className="text-center text-2xl my-5">Image information</h1>
+      <h1 className="text-center text-2xl my-5 mb-10">Image information</h1>
       {isPending && (
         <ResponsiveMasonry
           columnsCountBreakPoints={{
@@ -67,11 +67,11 @@ function ImageInfo() {
       )}
       {imageData.map((item) => {
         return (
-          <div className="flex flex-col sm:flex-row gap-5">
+          <div className="flex flex-col sm:flex-row gap-10">
             <div className="md:min-w-80 sm:min-w-60">
-              <div className="">
+              <div className="border rounded-xl p-1 bg-gray-300">
                 <img
-                  className="rounded-md object-cover w-auto h-auto md:w-80 md:max-h-96"
+                  className="rounded-lg object-cover w-auto h-auto md:w-80 md:max-h-96"
                   src={item.urls.regular}
                   alt={item.alt_description}
                 />
@@ -82,19 +82,21 @@ function ImageInfo() {
               <ul className="flex flex-col gap-6">
                 <li className="flex justify-start gap-5 items-center">
                   <span className="font-bold">Author:</span>
-                  <div className="border relative flex justify-start gap-5 items-center rounded-md p-1 pl-2 pr-10 overflow-visible">
+                  <div className="border relative flex justify-start gap-5 items-center rounded-md p-1 pl-2 pr-10 overflow-visible duration-300 hover:shadow-lg">
                     <p>{item.user.name}</p>
                     <img
                       alt=""
                       src={item.user.profile_image.large}
-                      className="h-12 w-12 rounded-full absolute -right-5"
+                      className="h-12 w-12 rounded-full absolute -right-5 border shadow-lg"
                     />
                   </div>
                 </li>
 
                 <li className="flex justify-start gap-5 items-center">
                   <span className="font-bold">Created:</span>
-                  <span>{item.created_at}</span>
+                  <span>
+                    {item.created_at.split("T")[0].split("-").join(".")}
+                  </span>
                 </li>
               </ul>
             </div>

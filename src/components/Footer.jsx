@@ -1,9 +1,7 @@
-
-
 function Footer() {
-    return (
-        <div className="bg-slate-700">
-            <footer className="footer align-elements text-neutral-content items-center p-4">
+  return (
+    <div className="bg-slate-700 mt-10 py-3">
+      {/* <footer className="footer container text-neutral-content items-center p-3">
                 <aside className="grid-flow-col items-center">
                     <svg
                         width="36"
@@ -53,9 +51,10 @@ function Footer() {
                         </svg>
                     </a>
                 </nav>
-            </footer>
-        </div>
-    );
+            </footer> */}
+      <p className="text-center text-blue-50">Copyright © {new Date().getFullYear()} - All right reserved</p>
+    </div>
+  );
 }
 
-export default Footer
+export default Footer;

@@ -33,7 +33,7 @@ function Navbar() {
   }, [theme])
 
   return (
-    <header className="bg-base-300">
+    <header className="bg-base-300 shadow-md sticky top-0 z-50">
       <div className="navbar align-elements">
         <div className="navbar-start">
           <Link to={"/"} className="hidden md:flex">
