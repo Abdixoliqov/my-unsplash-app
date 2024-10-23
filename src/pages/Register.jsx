@@ -1,29 +1,66 @@
 // react router dom
-import { Form } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 
 // components
 import { FormInput } from "../components";
 
+// register hooks
+import { useRegister } from "../hooks/useRegister";
+
 function Register() {
+  const { registerWithGoogle } = useRegister();
   return (
     <div className="flex min-h-screen w-full">
-      <div className="w-[40%] bg-[url('https://picsum.photos/900/1200')] bg-cover bg-center"></div>
-      <div className="w-[60%] flex items-center justify-center">
-        <Form method="post" className="w-full max-w-96">
-          <h1 className="text-center mb-5 font-semibold text-4xl">Register</h1>
+      <div className="hidden w-[40%] bg-[url('https://picsum.photos/900/1200')] bg-cover bg-center md:block"></div>
+      <div className="flex w-full items-center justify-center bg-[url('https://picsum.photos/900/1200')] bg-cover bg-center md:w-[60%] md:bg-none">
+        <Form method="post" className="w-full max-w-96 px-5 md:px-0">
+          <h1 className="mb-5 text-center text-4xl font-semibold text-white md:text-black">
+            Register
+          </h1>
 
           <div className="flex flex-col gap-4">
-            <FormInput placeholder={"Full Name"} name={"displayName"} type={"text"}/>
-            <FormInput placeholder={"Email"} name={"email"} type={"email"}/>
-            <FormInput placeholder={"Password"} name={"password"} type={"password"}/>
-            <FormInput placeholder={"Confirm Password"} name={"password"} type={"password"}/>
+            <FormInput
+              placeholder={"Full Name"}
+              name={"displayName"}
+              type={"text"}
+            />
+            <FormInput placeholder={"Email"} name={"email"} type={"email"} />
+            <FormInput
+              placeholder={"Password"}
+              name={"password"}
+              type={"password"}
+            />
+            <FormInput
+              placeholder={"Confirm Password"}
+              name={"password"}
+              type={"password"}
+            />
           </div>
 
-          <div className="flex gap-5 my-5">
-            <button type="submit" className="grow btn btn-primary">Register</button>
-            <button type="button" className="grow btn btn-secondary">Google</button>
+          <div className="my-5 flex flex-col gap-5 md:flex-row">
+            <button
+              type="submit"
+              className="btn btn-primary btn-sm grow md:btn-md"
+            >
+              Register
+            </button>
+            <button
+            onClick={registerWithGoogle}
+              type="button"
+              className="btn btn-secondary btn-sm grow md:btn-md"
+            >
+              Google
+            </button>
           </div>
 
+          <div className="text-center">
+            <Link
+              to={"/login"}
+              className="link link-primary text-white md:text-black"
+            >
+              You alredy have account!
+            </Link>
+          </div>
         </Form>
       </div>
     </div>

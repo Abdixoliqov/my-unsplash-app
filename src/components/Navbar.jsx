@@ -14,37 +14,40 @@ import { NavLinks } from "./";
 import { useEffect, useState } from "react";
 
 function themeFromLocalStorage() {
-  return localStorage.getItem("theme") || 'winter'
+  return localStorage.getItem("theme") || "winter";
 }
 
-
 function Navbar() {
-  const { likedImages, downloadImages } = useGlobalContext()
-  const [theme, setTheme] = useState(themeFromLocalStorage())
+  const { likedImages, downloadImages } = useGlobalContext();
+  const [theme, setTheme] = useState(themeFromLocalStorage());
+  const { user } = useGlobalContext();
 
   function toggleTheme(params) {
-    const newTheme = theme === 'winter' ? 'dracula' : 'winter'
-    setTheme(newTheme)
+    const newTheme = theme === "winter" ? "dracula" : "winter";
+    setTheme(newTheme);
   }
 
   useEffect(() => {
-    localStorage.setItem('theme', theme)
-    document.documentElement.setAttribute('data-theme', theme)
-  }, [theme])
+    localStorage.setItem("theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   return (
-    <header className="bg-base-300 shadow-md sticky top-0 z-50">
-      <div className="navbar align-elements">
+    <header className="sticky top-0 z-50 bg-base-300 shadow-md">
+      <div className="align-elements navbar">
         <div className="navbar-start">
           <Link to={"/"} className="hidden md:flex">
-            <FcStackOfPhotos className="w-10 h-10" />
+            <FcStackOfPhotos className="h-10 w-10" />
           </Link>
 
           <div className="dropdown md:hidden">
             <div tabIndex={0} role="button">
-              <FcStackOfPhotos className="w-10 h-10" />
+              <FcStackOfPhotos className="h-10 w-10" />
             </div>
-            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+            >
               <NavLinks />
             </ul>
           </div>
@@ -54,19 +57,21 @@ function Navbar() {
             <NavLinks />
           </ul>
         </div>
-        <div className="navbar-end flex gap-6 items-center">
-          <Link to={'/downloadImages'}>
+        <div className="navbar-end flex items-center gap-6">
+          <Link to={"/downloadImages"}>
             <div className="indicator">
-              <span className="indicator-item badge badge-sm badge-secondary">{downloadImages.length}</span>
+              <span className="badge indicator-item badge-secondary badge-sm">
+                {downloadImages.length}
+              </span>
               <FaDownload className="h-6 w-6" />
             </div>
           </Link>
 
-
-
-          <Link to={'/likedImages'}>
+          <Link to={"/likedImages"}>
             <div className="indicator">
-              <span className="indicator-item badge badge-sm badge-secondary">{likedImages.length}</span>
+              <span className="badge indicator-item badge-secondary badge-sm">
+                {likedImages.length}
+              </span>
               <IoMdHeart className="h-6 w-6" />
             </div>
           </Link>
@@ -80,8 +85,39 @@ function Navbar() {
 
             {/* moon icon */}
             <FaMoon className="swap-off h-6 w-6 fill-current" />
-
           </label>
+
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="avatar btn btn-circle btn-ghost"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt={user.displayName+'avatar'}
+                  src={user.photoURL}
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+            >
+              <li>
+                <a className="justify-between">
+                  Profile
+                  <span className="badge">New</span>
+                </a>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <a>Logout</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </header>
