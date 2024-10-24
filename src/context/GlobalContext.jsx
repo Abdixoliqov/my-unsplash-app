@@ -20,6 +20,12 @@ const changeState = (state, action) => {
         ...state,
         user: payload,
       };
+    case 'AUTH_READY':
+      return {
+        ...state,
+        authReady: true,
+
+      }
     case "LOGOUT":
       return {
         ...state,
@@ -61,6 +67,7 @@ export function GlobalContextProvider({ children }) {
     likedImages: [],
     downloadImages: [],
     downloadCheck: false,
+    authReady: false,
   });
 
   useEffect(() => {

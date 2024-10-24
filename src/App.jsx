@@ -27,9 +27,15 @@ import { ProtectedRoutes } from "./components";
 
 // global context
 import { useGlobalContext } from "./hooks/useGlobalContext";
+import { useEffect } from "react";
+
+// firebase
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebaseConfig";
+import { toast } from "react-toastify";
 
 function App() {
-const {user} = useGlobalContext();
+const {user, dispatch, authReady} = useGlobalContext();
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -76,7 +82,22 @@ const {user} = useGlobalContext();
     },
   ]);
 
-  return <RouterProvider router={routes} />;
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user)=>{
+      if(user) {
+        dispatch({type: 'LOGIN', payload: user})
+      }else{
+        toast.warn("User Already Sign Out")
+      }
+      dispatch({type: 'AUTH_READY'})
+    })
+  },[])
+
+  return (
+    <>
+      {authReady && <RouterProvider router={routes} />}
+    </>
+  )
 }
 
 export default App;
