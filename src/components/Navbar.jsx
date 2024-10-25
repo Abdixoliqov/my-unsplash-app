@@ -13,6 +13,10 @@ import { FaSun, FaMoon, FaDownload } from "react-icons/fa";
 import { NavLinks } from "./";
 import { useEffect, useState } from "react";
 
+// firebase
+import { signOut } from "firebase/auth";
+// import {auth}
+
 function themeFromLocalStorage() {
   return localStorage.getItem("theme") || "winter";
 }
@@ -94,15 +98,12 @@ function Navbar() {
               className="avatar btn btn-circle btn-ghost"
             >
               <div className="w-10 rounded-full">
-                <img
-                  alt={user.displayName+'avatar'}
-                  src={user.photoURL}
-                />
+                <img alt={user.displayName + "avatar"} src={user.photoURL} />
               </div>
             </div>
             <ul
               tabIndex={0}
-              className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+              className="menu dropdown-content menu-sm z-[1] mt-4 w-52 rounded-md bg-base-200 p-2 shadow"
             >
               <li>
                 <a className="justify-between">
@@ -114,7 +115,7 @@ function Navbar() {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+                <button>Logout</button>
               </li>
             </ul>
           </div>
