@@ -1,13 +1,35 @@
 // react router dom
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useActionData } from "react-router-dom";
 
 // components
 import { FormInput } from "../components";
 
 // useRegister hooks
 import { useRegister } from "../hooks/useRegister";
+import { useEffect } from "react";
+
+// login action
+export const action = async ({request}) => {
+  const formData = await request.formData()
+  const email = formData.get('email')
+  const password = formData.get('password')
+
+  return {
+    email,
+    password
+  }
+};
 
 function Login() {
+  const inputData = useActionData();
+
+  useEffect(()=>{
+    if(inputData){
+      console.log(inputData);
+      
+    }
+  }, [inputData])
+  
   const { registerWithGoogle } = useRegister();
   return (
     <div className="flex min-h-screen w-full">

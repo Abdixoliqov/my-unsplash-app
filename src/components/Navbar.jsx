@@ -26,6 +26,8 @@ function Navbar() {
   const { likedImages, downloadImages, user, dispatch } = useGlobalContext();
   const [theme, setTheme] = useState(themeFromLocalStorage());
   // const { user } = useGlobalContext();
+  // console.log(user, 'user');
+  
 
   function toggleTheme(params) {
     const newTheme = theme === "winter" ? "dracula" : "winter";

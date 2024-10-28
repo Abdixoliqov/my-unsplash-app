@@ -3,7 +3,6 @@ import { GlobalContext } from "../context/GlobalContext";
 
 export const useGlobalContext=()=>{
     const context = useContext(GlobalContext)
-    console.log(context, 'context');
     
 
     if(!context) {

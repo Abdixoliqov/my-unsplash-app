@@ -7,8 +7,44 @@ import { FormInput } from "../components";
 // register hooks
 import { useRegister } from "../hooks/useRegister";
 
+
+// register action 
+export const action = async ({request}) =>{
+  const formData = await request.formData()
+  const displayName = formData.get('displayName')
+  const email = formData.get('email')
+  const password = formData.get('password')
+  const confirmPassword = formData.get('confirm_password')
+
+  if(password == confirmPassword){
+
+    return {
+      displayName,
+      email,
+      password,
+    }
+  }else{
+    toast.warn('password is not equal!')
+  }
+
+}
+
+
+import { useActionData } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+
 function Register() {
-  const { registerWithGoogle } = useRegister();
+  const { registerWithGoogle, registerWithEmail } = useRegister();
+  const inputData = useActionData()
+
+  useEffect(()=>{
+    if(inputData){
+      registerWithEmail(inputData.displayName, inputData.email, inputData.password);
+      
+    }
+  }, [inputData])
+  
   return (
     <div className="flex min-h-screen w-full">
       <div className="hidden w-[40%] bg-[url('https://picsum.photos/900/1200')] bg-cover bg-center md:block"></div>
@@ -34,7 +70,7 @@ function Register() {
             />
             <FormInput
               placeholder={"Confirm Password"}
-              name={"password"}
+              name={"confirm_password"}
               type={"password"}
             />
           </div>

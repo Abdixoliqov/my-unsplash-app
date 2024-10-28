@@ -1,5 +1,9 @@
 // react router dom
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 
 // pages
 // import Home from './pages/Home'
@@ -21,6 +25,8 @@ import MainLayout from "./layouts/MainLayout";
 
 // actions
 import { action as HomeAction } from "./pages/Home";
+import { action as RegisterAction } from "./pages/Register";
+import { action as LoginAction } from "./pages/Login";
 
 // components
 import { ProtectedRoutes } from "./components";
@@ -35,7 +41,7 @@ import { auth } from "./firebase/firebaseConfig";
 import { toast } from "react-toastify";
 
 function App() {
-const {user, dispatch, authReady} = useGlobalContext();
+  const { user, dispatch, authReady } = useGlobalContext();
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -74,28 +80,26 @@ const {user, dispatch, authReady} = useGlobalContext();
     },
     {
       path: "/login",
-      element: user ? <Navigate to={'/'}/> : <Login />,
+      element: user ? <Navigate to={"/"} /> : <Login />,
+      action: LoginAction,
     },
     {
       path: "/register",
-      element: user ? <Navigate to={'/'}/> : <Register />,
+      element: user ? <Navigate to={"/"} /> : <Register />,
+      action: RegisterAction,
     },
   ]);
 
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user)=>{
-      if(user) {
-        dispatch({type: 'LOGIN', payload: user})
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch({ type: "LOGIN", payload: user });
       }
-      dispatch({type: 'AUTH_READY'})
-    })
-  },[])
+      dispatch({ type: "AUTH_READY" });
+    });
+  }, []);
 
-  return (
-    <>
-      {authReady && <RouterProvider router={routes} />}
-    </>
-  )
+  return <>{authReady && <RouterProvider router={routes} />}</>;
 }
 
 export default App;
