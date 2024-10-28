@@ -6,6 +6,7 @@ import { FormInput } from "../components";
 
 // useRegister hooks
 import { useRegister } from "../hooks/useRegister";
+import { useLogin } from "../hooks/useLogin";
 import { useEffect } from "react";
 
 // login action
@@ -23,9 +24,11 @@ export const action = async ({request}) => {
 function Login() {
   const inputData = useActionData();
 
+  const {loginWithEmail} = useLogin()
+
   useEffect(()=>{
     if(inputData){
-      console.log(inputData);
+      loginWithEmail(inputData.email, inputData.password);
       
     }
   }, [inputData])
