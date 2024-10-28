@@ -15,21 +15,32 @@ import { useEffect, useState } from "react";
 
 // firebase
 import { signOut } from "firebase/auth";
-// import {auth}
+import { auth } from "../firebase/firebaseConfig";
+import { toast } from "react-toastify";
 
 function themeFromLocalStorage() {
   return localStorage.getItem("theme") || "winter";
 }
 
 function Navbar() {
-  const { likedImages, downloadImages } = useGlobalContext();
+  const { likedImages, downloadImages, user, dispatch } = useGlobalContext();
   const [theme, setTheme] = useState(themeFromLocalStorage());
-  const { user } = useGlobalContext();
+  // const { user } = useGlobalContext();
 
   function toggleTheme(params) {
     const newTheme = theme === "winter" ? "dracula" : "winter";
     setTheme(newTheme);
   }
+
+  const signOutUser = async () => {
+    try {
+      await signOut(auth);
+      dispatch({ type: "LOGOUT" });
+      toast.success("See you soon!");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -115,7 +126,7 @@ function Navbar() {
                 <a>Settings</a>
               </li>
               <li>
-                <button>Logout</button>
+                <button onClick={signOutUser}>Logout</button>
               </li>
             </ul>
           </div>

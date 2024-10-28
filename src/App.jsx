@@ -86,8 +86,6 @@ const {user, dispatch, authReady} = useGlobalContext();
     onAuthStateChanged(auth, (user)=>{
       if(user) {
         dispatch({type: 'LOGIN', payload: user})
-      }else{
-        toast.warn("User Already Sign Out")
       }
       dispatch({type: 'AUTH_READY'})
     })
