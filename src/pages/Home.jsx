@@ -24,7 +24,7 @@ function Home() {
   const prevSearchParam = useRef(searchParamFromAction)
 
   const { data, isPending, error } = useFetch(
-    `https://api.unsplash.com/search/photos?client_id=${import.meta.env.VITE_ACCESS_KEY
+    `https://api.unsplash.com/search/photos?client_id=${import.meta.env.ACCESS_KEY
     }&query=${searchParamFromAction ?? 'all'}&page=${pageParam}`
   )
 

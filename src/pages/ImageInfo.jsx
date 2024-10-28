@@ -11,7 +11,7 @@ function ImageInfo() {
   const { id } = useParams();
   const { data, isPending, error } = useFetch(
     `https://api.unsplash.com/photos/${id}?client_id=${
-      import.meta.env.VITE_ACCESS_KEY
+      import.meta.env.ACCESS_KEY
     }`
   );
 
